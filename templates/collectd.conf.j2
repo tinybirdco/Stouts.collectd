@@ -62,6 +62,14 @@ LoadPlugin write_graphite
 </Plugin>
 {% endif %}
 
+{% if collectd_redis_enabled %}
+<Plugin Redis>
+    <Node "{{inventory_hostname}}">
+        Host "localhost"
+    </Node>
+</Plugin>
+{% endif %}
+
 <Include "{{collectd_config_dir}}">
         Filter "*.conf"
 </Include>
