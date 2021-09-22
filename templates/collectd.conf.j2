@@ -63,10 +63,18 @@ LoadPlugin write_graphite
 {% endif %}
 
 {% if collectd_redis_enabled %}
-<Plugin Redis>
+LoadPlugin redis
+<Plugin redis>
     <Node "{{inventory_hostname}}">
         Host "localhost"
     </Node>
+</Plugin>
+{% endif %}
+
+{% if collectd_nginx_enabled %}
+LoadPlugin nginx
+<Plugin nginx>
+        URL "http://localhost/nginx_status"
 </Plugin>
 {% endif %}
 
