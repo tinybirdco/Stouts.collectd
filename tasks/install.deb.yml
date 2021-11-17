@@ -8,6 +8,7 @@
     - libpcap-dev
     - libyajl-dev
     - python3-apt
+    - python3-dev
     - sysstat
   register: collectd_packages
 
