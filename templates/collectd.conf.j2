@@ -78,6 +78,27 @@ LoadPlugin nginx
 </Plugin>
 {% endif %}
 
+{% if collectd_iostat_enabled %}
+<LoadPlugin python>
+    Globals true
+</LoadPlugin>
+
+<Plugin python>
+    ModulePath "{{collectd_plugins_dir}}"
+    Import "collectd_iostat_python"
+
+    <Module collectd_iostat_python>
+        Path "/usr/bin/iostat"
+        Interval 20
+        Count 2
+        Verbose false
+        NiceNames false
+        DisksRegex "^[hs]d"
+        PluginName collectd_iostat_python
+    </Module>
+</Plugin>
+{% endif %}
+
 <Include "{{collectd_config_dir}}">
         Filter "*.conf"
 </Include>

@@ -75,3 +75,5 @@ collectd_plugins_dir: "{{ '/usr/lib/collectd' if collectd_use_ppa else collectd_
 collectd_sbin_path: "{{ '/usr/sbin' if collectd_use_ppa else collectd_prefix_sbin }}"
 
 collectd_redis_enabled: false
+collectd_nginx_enabled: false
+collectd_iostat_enabled: true
