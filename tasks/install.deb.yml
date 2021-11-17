@@ -9,6 +9,7 @@
     - libyajl-dev
     - python3-apt
     - sysstat
+  register: collectd_packages
 
 - name: collectd-install | Download Collectd
   get_url: url=http://collectd.org/files/collectd-{{collectd_version}}.tar.bz2 dest=/usr/src
@@ -22,4 +23,4 @@
   shell: ./configure --prefix={{collectd_prefix}} && make all install
   args:
     chdir: /usr/src/collectd-{{collectd_version}}
-  when: collectd_source.changed
+  when: collectd_source.changed or collectd_packages.changed
