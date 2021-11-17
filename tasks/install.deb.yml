@@ -7,7 +7,7 @@
     - libcurl4-openssl-dev
     - libpcap-dev
     - libyajl-dev
-    - python-apt
+    - python3-apt
     - sysstat
 
 - name: collectd-install | Download Collectd
@@ -22,5 +22,4 @@
   shell: ./configure --prefix={{collectd_prefix}} && make all install
   args:
     chdir: /usr/src/collectd-{{collectd_version}}
-    creates: "{{collectd_prefix}}"
   when: collectd_source.changed
