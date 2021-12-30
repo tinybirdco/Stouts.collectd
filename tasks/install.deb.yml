@@ -10,6 +10,7 @@
     - python3-apt
     - python3-dev
     - sysstat
+    - varnish-dev
   register: collectd_packages
 
 - name: collectd-install | Download Collectd
