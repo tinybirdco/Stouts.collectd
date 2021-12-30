@@ -77,3 +77,5 @@ collectd_sbin_path: "{{ '/usr/sbin' if collectd_use_ppa else collectd_prefix_sbi
 collectd_redis_enabled: false
 collectd_nginx_enabled: false
 collectd_iostat_enabled: true
+collectd_zookeeper_enabled: false
+collectd_varnish_enabled: false

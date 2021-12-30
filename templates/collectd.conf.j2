@@ -99,6 +99,29 @@ LoadPlugin nginx
 </Plugin>
 {% endif %}
 
+{% if collectd_zookeeper_enabled %}
+LoadPlugin zookeeper
+<Plugin zookeeper>
+	Host "127.0.0.1"
+	Port "2181"
+</Plugin>
+{% endif %}
+
+{% if collectd_varnish_enabled %}
+LoadPlugin varnish
+<Plugin varnish>
+    <Instance>
+        CollectBackend     true
+        CollectCache       true
+        CollectConnections true
+        CollectFetch       true
+        CollectSession     true
+        CollectSHM         false
+        CollectVBE         true
+    </Instance>
+</Plugin>
+{% endif %}
+
 <Include "{{collectd_config_dir}}">
         Filter "*.conf"
 </Include>
