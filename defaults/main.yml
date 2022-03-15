@@ -12,9 +12,9 @@ collectd_ppa_source: 'ppa:collectd/collectd-5.5'
 
 # Source options
 collectd_prefix: /opt/collectd      # The place where Collectd will be installed
-collectd_prefix_type: "{{collectd_prefix}}/etc"
-collectd_prefix_conf: "{{collectd_prefix}}/etc"
-collectd_prefix_sbin: "{{collectd_prefix}}/sbin"
+collectd_prefix_type: "{{ collectd_prefix }}/etc"
+collectd_prefix_conf: "{{ collectd_prefix }}/etc"
+collectd_prefix_sbin: "{{ collectd_prefix }}/sbin"
 collectd_plugins_prefix: "{{collectd_prefix_conf}}/conf.d"
 
 # General options
@@ -43,7 +43,7 @@ collectd_types: []
 # Collectd graphite options
 collectd_write_graphite: no
 collectd_write_graphite_options:    # Setup write_graphite (https://collectd.org/wiki/index.php/Plugin:Write_Graphite)
-  Host: "{{inventory_hostname}}"
+  Host: "{{ inventory_hostname }}"
   Port: 2003
   Prefix: stats.
   # Postfix: .collectd
@@ -79,3 +79,5 @@ collectd_nginx_enabled: false
 collectd_iostat_enabled: true
 collectd_zookeeper_enabled: false
 collectd_varnish_enabled: false
+collectd_connect_time_clickhouse_port: 8123
+collectd_connect_time_varnish_port: 6081

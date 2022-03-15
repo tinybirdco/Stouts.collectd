@@ -1,18 +1,27 @@
 ---
 
 - name: collectd-configure | Configure Collectd
-  template: src=collectd.conf.j2 dest={{collectd_config_file}} validate='{{collectd_sbin_path}}/collectd -t -C %s'
+  template: src=collectd.conf.j2 dest={{ collectd_config_file }} validate='{{ collectd_sbin_path }}/collectd -t -C %s'
   notify: collectd restart
 
 - name: collectd-configure | Ensure conf.d directory
-  file: path={{collectd_config_dir}} state=directory
+  file: path={{ collectd_config_dir }} state=directory
 
 - name: collectd-configure | Configure additional types
-  template: src=types.db.j2 dest={{collectd_additional_types_db_path}}
+  template: src=types.db.j2 dest={{ collectd_additional_types_db_path }}
   notify: collectd restart
 
 - name: collectd-configure | Copy iostat plugin
   copy:
     src: plugins/collectd_iostat_python.py
-    dest: "{{collectd_plugins_dir}}"
+    dest: "{{ collectd_plugins_dir }}"
   notify: collectd restart
+
+- name: collectd-configure | Copy collectd_connect_time plugin
+  copy:
+    src: plugins/collectd_connect_time.py
+    dest: "{{ collectd_plugins_dir }}/collectd_connect_time_{{ item }}.py"
+  notify: collectd restart
+  with_items:
+    - clickhouse
+    - varnish

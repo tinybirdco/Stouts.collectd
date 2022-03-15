@@ -28,15 +28,15 @@
   when: collectd_varnish_enabled
 
 - name: collectd-install | Download Collectd
-  get_url: url=http://collectd.org/files/collectd-{{collectd_version}}.tar.bz2 dest=/usr/src
+  get_url: url=http://collectd.org/files/collectd-{{ collectd_version }}.tar.bz2 dest=/usr/src
   register: collectd_source
 
 - name: collectd-install | Extract Collectd
-  unarchive: src=/usr/src/collectd-{{collectd_version}}.tar.bz2 dest=/usr/src copy=no
+  unarchive: src=/usr/src/collectd-{{ collectd_version }}.tar.bz2 dest=/usr/src copy=no
   when: collectd_source.changed
 
 - name: collectd-install | Install Collectd
-  shell: ./configure --prefix={{collectd_prefix}} && make all install
+  shell: ./configure --prefix={{ collectd_prefix }} && make all install
   args:
-    chdir: /usr/src/collectd-{{collectd_version}}
+    chdir: /usr/src/collectd-{{ collectd_version }}
   when: collectd_source.changed or collectd_packages.changed or redis_packages or varnish_packages

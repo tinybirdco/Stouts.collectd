@@ -84,7 +84,7 @@ LoadPlugin nginx
 </LoadPlugin>
 
 <Plugin python>
-    ModulePath "{{collectd_plugins_dir}}"
+    ModulePath "{{ collectd_plugins_dir }}"
     Import "collectd_iostat_python"
 
     <Module collectd_iostat_python>
@@ -95,6 +95,32 @@ LoadPlugin nginx
         NiceNames false
         DisksRegex "^[hs]d"
         PluginName collectd_iostat_python
+    </Module>
+</Plugin>
+{% endif %}
+
+{% if collectd_connect_time_clickhouse_hosts is defined %}
+<Plugin python>
+    ModulePath "/opt/collectd/lib/collectd"
+    Import "collectd_connect_time_clickhouse"
+    <Module collectd_connect_time_clickhouse>
+        target {% for host in collectd_connect_time_clickhouse_hosts %} "{{ host }}" {% endfor %}
+
+        port "{{ collectd_connect_time_clickhouse_port }}"
+        type "clickhouse"
+    </Module>
+</Plugin>
+{% endif %}
+
+{% if collectd_connect_time_varnish_hosts is defined %}
+<Plugin python>
+    ModulePath "/opt/collectd/lib/collectd"
+    Import "collectd_connect_time_varnish"
+    <Module collectd_connect_time_varnish>
+        target {% for host in collectd_connect_time_varnish_hosts %} "{{ host }}" {% endfor %}
+
+        port "{{ collectd_connect_time_varnish_port }}"
+        type "varnish"
     </Module>
 </Plugin>
 {% endif %}
