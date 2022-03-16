@@ -79,5 +79,6 @@ collectd_nginx_enabled: false
 collectd_iostat_enabled: true
 collectd_zookeeper_enabled: false
 collectd_varnish_enabled: false
+collectd_connect_time_enabled: false
 collectd_connect_time_clickhouse_port: 8123
 collectd_connect_time_varnish_port: 6081
