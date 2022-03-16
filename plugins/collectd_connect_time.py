@@ -37,10 +37,11 @@ class ConnectTimePlugin(object):
             self.error("read: no target set")
         for target in self.target:
             try:
-                target_val = self.get_target_val(target,self.port)
+                host,ip = target.split(":")
+                target_val = self.get_target_val(ip,self.port)
                 collectd.Values(plugin=self.name,
                                 type_instance=self.type,
-                                plugin_instance=target,
+                                plugin_instance=host,
                                 type='response_time',
                                 values=[int(round(max(target_val.values()),0))]).dispatch()
             # TODO: split into keys and values

@@ -106,7 +106,7 @@ LoadPlugin nginx
     <Module collectd_connect_time_clickhouse>
         target {% for cluster_name in clickhouse_clusters -%}
                 {%- set hosts=groups.get("clickhouse_cluster_" + cluster_name, []) -%}
-                {%- for host in hosts -%}"{{ hostvars[host].networkInterfaces[0].networkIP }}" {% endfor -%}
+                {%- for host in hosts -%}"{{ host }}:{{ hostvars[host].networkInterfaces[0].networkIP }}" {% endfor -%}
                 {%- endfor %}
 
         port "{{ collectd_connect_time_clickhouse_port }}"
@@ -118,7 +118,7 @@ LoadPlugin nginx
     ModulePath "/opt/collectd/lib/collectd"
     Import "collectd_connect_time_varnish"
     <Module collectd_connect_time_varnish>
-        target {% for cluster_name in clickhouse_clusters -%}"{{ cluster_name }}" {% endfor %}
+        target {% for cluster_name in clickhouse_clusters -%}"{{ cluster_name }}:{{ cluster_name }}" {% endfor %}
 
         port "{{ collectd_connect_time_varnish_port }}"
         type "varnish"
