@@ -99,7 +99,7 @@ LoadPlugin nginx
 </Plugin>
 {% endif %}
 
-{% if collectd_connect_time_enabled is defined %}
+{% if collectd_connect_time_enabled %}
 <Plugin python>
     ModulePath "/opt/collectd/lib/collectd"
     Import "collectd_connect_time_clickhouse"
@@ -113,9 +113,7 @@ LoadPlugin nginx
         type "clickhouse"
     </Module>
 </Plugin>
-{% endif %}
 
-{% if collectd_connect_time_enabled is defined %}
 <Plugin python>
     ModulePath "/opt/collectd/lib/collectd"
     Import "collectd_connect_time_varnish"
