@@ -70,10 +70,10 @@ class ConnectTimePlugin(object):
                     duration = 5*1000*1000
                 except socket_error as e:
                     self.debug("{} -> {}".format(addr[0],e))
-                else:
-                    k = "{}".format(*host)
-                    # time in uS
-                    ret[k] = duration
+                    duration = -1
+                k = "{}".format(*host)
+                # time in microSeconds
+                ret[k] = duration
         return ret
 
     def debug(self,msg):
