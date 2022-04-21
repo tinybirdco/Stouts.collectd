@@ -126,6 +126,35 @@ LoadPlugin nginx
 </Plugin>
 {% endif %}
 
+{% if collectd_curl_enabled %}
+LoadPlugin curl
+<Plugin curl>
+  {% for cluster_name in clickhouse_clusters -%}
+  {%- set hosts=groups.get("clickhouse_cluster_" + cluster_name, []) -%}
+  {%- for host in hosts -%}
+  <Page "{{ host }}">
+    Plugin "clickhouse-curl"
+    URL "http://{{ hostvars[host].networkInterfaces[0].networkIP }}:{{ collectd_curl_clickhouse_port }}"
+    MeasureResponseTime true
+    MeasureResponseCode true
+  </Page>
+  {% endfor -%}
+  {%- endfor %}
+</Plugin>
+<Plugin curl>
+  {% for cluster_name in clickhouse_clusters -%}
+  <Page "{{ cluster_name }}">
+    Plugin "varnish-curl"
+    URL "http://{{ cluster_name }}:{{ collectd_curl_varnish_port }}"
+    MeasureResponseTime true
+    MeasureResponseCode true
+  </Page>
+  {% endfor %}
+</Plugin>
+
+{% endif %}
+
+
 {% if collectd_zookeeper_enabled %}
 LoadPlugin zookeeper
 <Plugin zookeeper>

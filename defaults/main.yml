@@ -82,3 +82,6 @@ collectd_varnish_enabled: false
 collectd_connect_time_enabled: false
 collectd_connect_time_clickhouse_port: 8123
 collectd_connect_time_varnish_port: 6081
+collectd_curl_enabled: false
+collectd_curl_clickhouse_port: 8123
+collectd_curl_varnish_port: 6081
