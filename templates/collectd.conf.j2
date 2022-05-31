@@ -106,7 +106,7 @@ LoadPlugin nginx
     <Module collectd_connect_time_clickhouse>
         target {% for cluster_name in clickhouse_clusters -%}
                 {%- set hosts=groups.get("clickhouse_cluster_" + cluster_name, []) -%}
-                {%- for host in hosts -%}"{{ host }}:{{ hostvars[host].networkInterfaces[0].networkIP }}" {% endfor -%}
+                {%- for host in hosts -%}"{{ host }}:{{ hostvars[host].private_ip_address }}" {% endfor -%}
                 {%- endfor %}
 
         port "{{ collectd_connect_time_clickhouse_port }}"
@@ -134,7 +134,7 @@ LoadPlugin curl
   {%- for host in hosts -%}
   <Page "{{ host }}">
     Plugin "clickhouse-curl"
-    URL "http://{{ hostvars[host].networkInterfaces[0].networkIP }}:{{ collectd_curl_clickhouse_port }}"
+    URL "http://{{ hostvars[host].private_ip_address }}:{{ collectd_curl_clickhouse_port }}"
     MeasureResponseTime true
     MeasureResponseCode true
   </Page>
